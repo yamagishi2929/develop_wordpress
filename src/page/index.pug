@@ -1,0 +1,85 @@
+extend /_includes/_layout
+append variables
+  //- Required
+  - var pageTitle= "人物登録";
+  - var pageDescription= site.description;
+  - var pageKeywords= site.keywords;
+  //- Optional
+  - var pageOgpTitle= "";
+  - var pageOgpImage= site.ogpImage
+  - var pageLang= "ja";
+  - var pageOgpType= "website";
+  //- Not modified
+  - var pageUrl= relativePath;
+block content
+  // contents
+  .content-fluid
+    .project-col
+      .project-head
+        .project-menu
+          .project-subheading.project-id ID
+          .project-subheading.project-inheritance 直継
+          .project-subheading.project-personal-name.is-active 中心人物
+          .project-subheading.project-sex 性別
+          .project-subheading.project-birthday 生年月日
+          .project-subheading.project-death-year 没年月日
+          .project-subheading.project-spouse 配偶者
+          .project-subheading.project-author 登録者
+        .project-menu
+          .project-subheading.project-trash 削除
+          .project-subheading.project-edit 編集
+      .project-item-col
+        .project-item
+          .project-item-menu
+            .project-data.project-id 10001
+            .project-data.project-crest
+              .crest-form
+                img(src="/images/tanakake.png" alt="田中家")
+            .project-data.project-family 田中家
+            .project-data.project-protagonist 田中太郎
+            .project-data.project-people 300
+            .project-data.project-author 山本太郎
+          .project-item-menu
+            .project-data.project-trash
+              i.icon--trash
+            .project-data.project-edit
+              i.icon--gear
+        .project-item
+          .project-item-menu
+            .project-data.project-id 10001
+            .project-data.project-crest
+              .crest-form
+                img(src="/images/family-crest.png" alt="none")
+            .project-data.project-family 田中家
+            .project-data.project-protagonist 田中太郎
+            .project-data.project-people 300
+            .project-data.project-author 山本太郎
+          .project-item-menu
+            .project-data.project-trash
+              i.icon--trash
+            .project-data.project-dl CSV
+            .project-data.project-output
+              i.icon--output
+            .project-data.project-edit
+                      i.icon--person
+        .project-item
+          .project-item-menu
+            .project-data.project-id 10001
+            .project-data.project-crest
+              .crest-form
+                img(src="/images/tanakake.png" alt="田中家")
+            .project-data.project-family 田中家
+            .project-data.project-protagonist 田中太郎
+            .project-data.project-people 300
+            .project-data.project-author 山本太郎
+          .project-item-menu
+            .project-data.project-trash
+              i.icon--trash
+            .project-data.project-dl CSV
+            .project-data.project-output
+              i.icon--output
+            .project-data.project-edit
+              i.icon--person
+
+            
+  // /contents

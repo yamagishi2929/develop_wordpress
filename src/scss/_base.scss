@@ -1,0 +1,75 @@
+@charset "UTF-8";
+@font-face {
+    font-family: "NotoSansCJKjp";
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf');
+    src:
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Regular.otf') format('opentype')
+}
+
+@font-face {
+    font-family: "NotoSansCJKjp";
+    font-style: black;
+    font-weight: 900;
+    src: url('../fonts/NotoSansCJKjp/NotoSansCJKjp-black.otf');
+    src:
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-black.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-black.otf') format('opentype')
+}
+@font-face {
+    font-family: "NotoSansCJKjp";
+    font-style: bold;
+    font-weight: 800;
+    src: url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf');
+    src:
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Bold.otf') format('opentype')
+}
+@font-face {
+    font-family: "NotoSansCJKjp";
+    font-style: medium;
+    font-weight: 700;
+    src: url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Medium.otf');
+    src:
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Medium.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Medium.otf') format('opentype')
+}
+@font-face {
+    font-family: "NotoSansCJKjp";
+    font-style:light;
+    font-weight: 400;
+    src: url('../fonts/NotoSansCJKjp/NotoSansCJKjp-Light.otf');
+    src:
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-black.woff') format('woff'),
+         url('../fonts/NotoSansCJKjp/NotoSansCJKjp-black.otf') format('opentype')
+}
+
+html{
+  width: 100%;
+  height: 100%;
+}
+body{
+  font-size:16px; font-size:1.6rem;
+  font-family: "Helvetica","NotoSansCJKjp","ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "ＭＳ Ｐゴシック", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  width: 100%;
+  height: 100%;
+  line-height: 1.7em  ;
+}
+ ul{
+   margin: 0;
+   padding: 0;
+ }
+li{
+ list-style: none;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+  margin:0;
+  padding:10;
+}
