@@ -13,6 +13,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
     "gulp-data": "^1.2.1",
     "gulp-imagemin": "^3.3.0",
     "gulp-notify": "^3.0.0",
@@ -24,12 +25,12 @@
     "gulp-spritesmith": "0.0.2",
     "gulp.spritesmith": "^6.5.0",
     "imagemin-pngquant": "^5.0.1",
-    "pug": "^2.0.0-rc.2"
+    "pug": "^2.0.0-rc.2",
+    "pug-php-filter": "0.0.1"
   },
   "dependencies": {
     "browser-sync": "^2.18.12",
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-data": "^1.2.1",
@@ -45,5 +46,13 @@
     "imagemin-pngquant": "^5.0.1",
     "pug": "^2.0.0-rc.2"
   },
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamagishi2929/develop_wordpress.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yamagishi2929/develop_wordpress/issues"
+  },
+  "homepage": "https://github.com/yamagishi2929/develop_wordpress#readme"
 }

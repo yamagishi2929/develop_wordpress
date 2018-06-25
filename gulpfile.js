@@ -15,6 +15,7 @@ var imagemin = require('gulp-imagemin');
 var spritesmith = require('gulp-spritesmith');
 var pngquant = require('imagemin-pngquant');
 var path = require('path');
+var pugPHPFilter	= require('pug-php-filter');
 
 
 /**
@@ -61,9 +62,9 @@ gulp.task('html', function() {
     // `/_includes/_layout`のようにルート相対パスで指定することができます。
     basedir: 'src',
     // Pugファイルの整形。
-    pretty: true
+    pretty: true,
   }))
-  .pipe(gulp.dest(dest.html))
+  .pipe(gulp.dest(dest.php))
   .pipe(browserSync.reload({stream: true}));
 });
 
