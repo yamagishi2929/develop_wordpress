@@ -23,26 +23,26 @@ var pugPHPFilter	= require('pug-php-filter');
  */
 var src = {
   // 出力対象は`_`で始まっていない`.pug`ファイル。
-  'html': ['./src/**/*.pug', '!' + './src/**/_*.pug'],
+  'html': ['src/**/*.pug', '!' + 'src/**/_*.pug'],
   // JSONファイルのディレクトリを変数化。
-  'json': './src/_data/',
-  'css': './src/css/**/*.css',
-  'js': './src/js/**/*.js',
+  'json': 'src/_data/',
+  'css': 'src/css/**/*.css',
+  'js': 'src/js/**/*.js',
 };
 
 /**
  * 出力するディレクトリを指定します。
  */
 var dest = {
-  'root': './dist/',
-  'html': './dist/'
+  'root': 'wordpress/wp-content/themes/mytheme/',
+  'php': 'wordpress/wp-content/themes/mytheme/'
 };
 
 /**
  * `.pug`をコンパイルしてから、destディレクトリに出力します。
  * JSONの読み込み、ルート相対パス、Pugの整形に対応しています。
  */
-gulp.task('html', function() {
+gulp.task('pug', function() {
   // JSONファイルの読み込み。
   var locals = {
     'site': JSON.parse(fs.readFileSync(src.json + 'site.json'))
@@ -62,19 +62,31 @@ gulp.task('html', function() {
     // `/_includes/_layout`のようにルート相対パスで指定することができます。
     basedir: 'src',
     // Pugファイルの整形。
-    pretty: true,
+    pretty: true
   }))
+  let option = {
+		pretty: true,
+		filters: {
+			php: pugPHPFilter
+		}
+	}
+  return gulp.src(src.html)
+	.pipe(pug(option))
+	.pipe(rename({
+		extname: '.php'
+	}))
   .pipe(gulp.dest(dest.php))
   .pipe(browserSync.reload({stream: true}));
 });
 
 //Sassのコンパイル
 gulp.task('sass', function() {
-  return gulp.src('./src/scss/**/*.scss')
+  return gulp.src('src/scss/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
-    .pipe(autoprefixer(['last 3 versions', 'ie >= 8', 'Android >= 4', 'iOS >= 8']))    .pipe(gulp.dest('./dist/css/'));s
+    .pipe(autoprefixer(['last 3 versions', 'ie >= 8', 'Android >= 4', 'iOS >= 8']))
+    .pipe(gulp.dest('wordpress/wp-content/themes/mytheme/css'));
 });
 
 gulp.task( 'copy', function() {
@@ -82,14 +94,14 @@ gulp.task( 'copy', function() {
         [ 'src/js/exclude/*.js' ],
         { base: 'src' }
     )
-    .pipe( gulp.dest( 'dist' ) );
+    .pipe( gulp.dest( 'dest' ) );
 } );
 
 // JSの統合
 gulp.task('concat',function(){
-    gulp.src(['./src/js/*.js','!./src/js/exclude/*.js'])
+    gulp.src(['src/js/*.js','!'+'/src/js/exclude/*.js'])
     .pipe(concat('script.js'))
-    .pipe(gulp.dest('./dist/js/'))
+    .pipe(gulp.dest('wordpress/wp-content/themes/mytheme/js'))
 });
 
 // 画像の圧縮
@@ -97,11 +109,10 @@ gulp.task( 'imagemin', function(){
   var imageminOptions = {
     optimizationLevel: 7
   };
-  gulp.src( "./src/**/*.+(jpg|jpeg|png|gif|svg)" )
+  gulp.src( "src/**/*.+(jpg|jpeg|png|gif|svg)" )
     .pipe(imagemin( imageminOptions ))
-    .pipe(gulp.dest( "./dist" ));
+    .pipe(gulp.dest( "wordpress/wp-content/themes/mytheme/images" ));
 });
-
 
 
 //ブラウザシンク
@@ -109,7 +120,7 @@ gulp.task('browser-sync', function() {
   browserSync({
     server: {
       baseDir: dest.root,
-      index: "index.html"
+      index: "index.php"
     }
   });
 });
@@ -119,19 +130,19 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
-gulp.task('default', ['browser-sync','sass','imagemin','concat','html'], function () {
-    gulp.watch('./src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
-    gulp.src('./src/scss/**/*.scss',+'./src/scss/**/_*.scss') //sassフォルダ内のscssファイルの変更箇所
+gulp.task('default', ['browser-sync','sass','imagemin','concat','pug'], function () {
+    gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
+    gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss') //sassフォルダ内のscssファイルの変更箇所
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./dist/css/'));
+        .pipe(gulp.dest('dest/css/'));
     });
-    gulp.watch("./src/**/*.pug",+'./src/**/_*.pug', ['html']);
-    gulp.watch("./srcimages/**/*.jpg", ['imagemin']);
-    gulp.watch("./srcimages/**/*.svg", ['imagemin']);
-    gulp.watch("./srcimages/**/*.png", ['imagemin']);
-    gulp.watch("./src/js/**/*.js", ['concat']);
-    gulp.watch("./src/js/exclude/*.js", ['copy']);
-    gulp.watch("./dist/**/*.html", ['bs-reload']);
-    gulp.watch("./dist/css/**/*.css", ['bs-reload']);
-    gulp.watch("./dist/js/**/*.js", ['bs-reload']);
+    gulp.watch("src/**/*.pug",+'src/**/_*.pug', ['pug']);
+    gulp.watch("srcimages/**/*.jpg", ['imagemin']);
+    gulp.watch("srcimages/**/*.svg", ['imagemin']);
+    gulp.watch("srcimages/**/*.png", ['imagemin']);
+    gulp.watch("src/js/**/*.js", ['concat']);
+    gulp.watch("src/js/exclude/*.js", ['copy']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/**/*.html", ['bs-reload']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/css/**/*.css", ['bs-reload']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/js/**/*.js", ['bs-reload']);
 });
