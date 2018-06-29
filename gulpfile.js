@@ -103,37 +103,35 @@ gulp.task( 'imagemin', function(){
     .pipe(gulp.dest( "vccw/wordpress/wp-content/themes/mytheme/" ));
 });
 
-// ブラウザシンク
-// gulp.task('browserSync', function() {
-//   browserSync({
-//     server: {
-//       baseDir: dest.root,
-//       index: "index.php"
-//     }
-//   });
-// });
-
-
 gulp.task('connect-sync', function() {
   connect.server({
-    port:8001,
+    port:'vccw.test',
     base:'www',
   }, function (){
     browserSync({
-      proxy: 'localhost:8001'
+      proxy: 'vccw.test/'
     });
   });
 });
 
+gulp.task('browserSync', function() {
+  browserSync.init({
+    //変更
+    proxy: "vccw.test/"
+  });
+});
+
+
+
 //ブラウザリロード
-gulp.task('bs-reload', function () {
+gulp.task('reload', function () {
     browserSync.reload();
 });
 
 
 
 
-gulp.task('default', ['connect-sync','sass','imagemin','concat','pug'], function () {
+gulp.task('default', ['browserSync','connect-sync','sass','imagemin','concat','pug'], function () {
     gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
     gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss') //sassフォルダ内のscssファイルの変更箇所
         .pipe(sass().on('error', sass.logError))
@@ -146,7 +144,7 @@ gulp.task('default', ['connect-sync','sass','imagemin','concat','pug'], function
     gulp.watch("srcimages/**/*.png", ['imagemin']);
     gulp.watch("src/js/**/*.js", ['concat']);
     gulp.watch("src/js/exclude/*.js", ['copy']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/**/*.html", ['bs-reload']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/css/**/*.css", ['bs-reload']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/js/**/*.js", ['bs-reload']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/**/*.html", ['reload']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/css/**/*.css", ['reload']);
+    gulp.watch("wordpress/wp-content/themes/mytheme/js/**/*.js", ['reload']);
 });
