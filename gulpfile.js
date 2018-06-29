@@ -6,6 +6,7 @@ var rename =require('gulp-rename');
 var browserSync =require('browser-sync');
 var autoprefixer =require('gulp-autoprefixer');
 var concat =require('gulp-concat');
+var connect = require('gulp-connect-php');
 var pug = require('gulp-pug');
 var fs = require('fs');
 var plumber = require('gulp-plumber');
@@ -17,42 +18,35 @@ var pngquant = require('imagemin-pngquant');
 var path = require('path');
 var pugPHPFilter	= require('pug-php-filter');
 
-
-/**
- * 開発用のディレクトリを指定します。
- */
+/** 開発用のディレクトリを指定します。 */
 var src = {
   // 出力対象は`_`で始まっていない`.pug`ファイル。
-  'html': ['src/**/*.pug', '!' + 'src/**/_*.pug'],
+  'pug': ['src/**/*.pug', '!' + 'src/**/_*.pug'],
   // JSONファイルのディレクトリを変数化。
   'json': 'src/_data/',
   'css': 'src/css/**/*.css',
   'js': 'src/js/**/*.js',
 };
 
-/**
- * 出力するディレクトリを指定します。
- */
+/** 出力するディレクトリを指定します。*/
 var dest = {
-  'root': 'wordpress/wp-content/themes/mytheme/',
-  'php': 'wordpress/wp-content/themes/mytheme/'
+  'root': 'vccw/wordpress/wp-content/themes/mytheme/',
+  'php': 'vccw/wordpress/wp-content/themes/mytheme/'
 };
 
-/**
- * `.pug`をコンパイルしてから、destディレクトリに出力します。
- * JSONの読み込み、ルート相対パス、Pugの整形に対応しています。
- */
+/** `.pug`をコンパイルしてから、destに出力します。  JSONの読み込み、ルート相対パス、Pugの整形に対応しています。
+*/
 gulp.task('pug', function() {
   // JSONファイルの読み込み。
   var locals = {
     'site': JSON.parse(fs.readFileSync(src.json + 'site.json'))
   }
-  return gulp.src(src.html)
+  return gulp.src(src.pug)
   // コンパイルエラーを通知します。
   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
   // 各ページごとの`/`を除いたルート相対パスを取得します。
   .pipe(data(function(file) {
-    locals.relativePath = path.relative(file.base, file.path.replace(/.pug$/, '.html'));
+    locals.relativePath = path.relative(file.base, file.path.replace(/.pug$/, '.php'));
       return locals;
   }))
   .pipe(pug({
@@ -62,19 +56,14 @@ gulp.task('pug', function() {
     // `/_includes/_layout`のようにルート相対パスで指定することができます。
     basedir: 'src',
     // Pugファイルの整形。
-    pretty: true
-  }))
-  let option = {
-		pretty: true,
-		filters: {
+    pretty: true,
+    filters: {
 			php: pugPHPFilter
 		}
-	}
-  return gulp.src(src.html)
-	.pipe(pug(option))
-	.pipe(rename({
-		extname: '.php'
-	}))
+  }))
+  .pipe(rename({
+    extname: '.php'
+  }))
   .pipe(gulp.dest(dest.php))
   .pipe(browserSync.reload({stream: true}));
 });
@@ -86,7 +75,7 @@ gulp.task('sass', function() {
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
     .pipe(autoprefixer(['last 3 versions', 'ie >= 8', 'Android >= 4', 'iOS >= 8']))
-    .pipe(gulp.dest('wordpress/wp-content/themes/mytheme/css'));
+    .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css'));
 });
 
 gulp.task( 'copy', function() {
@@ -101,7 +90,7 @@ gulp.task( 'copy', function() {
 gulp.task('concat',function(){
     gulp.src(['src/js/*.js','!'+'/src/js/exclude/*.js'])
     .pipe(concat('script.js'))
-    .pipe(gulp.dest('wordpress/wp-content/themes/mytheme/js'))
+    .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/js'))
 });
 
 // 画像の圧縮
@@ -111,17 +100,28 @@ gulp.task( 'imagemin', function(){
   };
   gulp.src( "src/**/*.+(jpg|jpeg|png|gif|svg)" )
     .pipe(imagemin( imageminOptions ))
-    .pipe(gulp.dest( "wordpress/wp-content/themes/mytheme/images" ));
+    .pipe(gulp.dest( "vccw/wordpress/wp-content/themes/mytheme/" ));
 });
 
+// ブラウザシンク
+// gulp.task('browserSync', function() {
+//   browserSync({
+//     server: {
+//       baseDir: dest.root,
+//       index: "index.php"
+//     }
+//   });
+// });
 
-//ブラウザシンク
-gulp.task('browser-sync', function() {
-  browserSync({
-    server: {
-      baseDir: dest.root,
-      index: "index.php"
-    }
+
+gulp.task('connect-sync', function() {
+  connect.server({
+    port:8001,
+    base:'www',
+  }, function (){
+    browserSync({
+      proxy: 'localhost:8001'
+    });
   });
 });
 
@@ -130,13 +130,17 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
-gulp.task('default', ['browser-sync','sass','imagemin','concat','pug'], function () {
+
+
+
+gulp.task('default', ['connect-sync','sass','imagemin','concat','pug'], function () {
     gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
     gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss') //sassフォルダ内のscssファイルの変更箇所
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('dest/css/'));
+        .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css/'));
     });
     gulp.watch("src/**/*.pug",+'src/**/_*.pug', ['pug']);
+    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/**/*.php",["reload"]);
     gulp.watch("srcimages/**/*.jpg", ['imagemin']);
     gulp.watch("srcimages/**/*.svg", ['imagemin']);
     gulp.watch("srcimages/**/*.png", ['imagemin']);

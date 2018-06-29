@@ -8,11 +8,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.18.12",
+    "browser-sync": "^2.24.5",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-connect-php": "^1.0.3",
     "gulp-cssmin": "^0.2.0",
     "gulp-data": "^1.2.1",
     "gulp-imagemin": "^3.3.0",
@@ -29,7 +30,6 @@
     "pug-php-filter": "0.0.1"
   },
   "dependencies": {
-    "browser-sync": "^2.18.12",
     "del": "^3.0.0",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
