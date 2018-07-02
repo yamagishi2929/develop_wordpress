@@ -24,7 +24,7 @@ var src = {
   'pug': ['src/**/*.pug', '!' + 'src/**/_*.pug'],
   // JSONファイルのディレクトリを変数化。
   'json': 'src/_data/',
-  'css': 'src/css/**/*.css',
+  'scss': 'src/scss/**/*.scss',
   'js': 'src/js/**/*.js',
 };
 
@@ -69,12 +69,19 @@ gulp.task('pug', function() {
 
 //Sassのコンパイル
 gulp.task('sass', function() {
-  return gulp.src('src/scss/**/*.scss')
+  return gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
     .pipe(autoprefixer(['last 3 versions', 'ie >= 8', 'Android >= 4', 'iOS >= 8']))
-    .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css'));
+    .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css/'));
+});
+
+gulp.task('sass-watch', ['sass'], function(){
+  var watcher = gulp.watch('src/scss/**/*.scss',+'src/scss/**/_*.scss' ['sass']);
+  watcher.on('change', function(event) {
+    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+  });
 });
 
 gulp.task( 'copy', function() {
@@ -102,7 +109,7 @@ gulp.task( 'imagemin', function(){
     .pipe(gulp.dest( "vccw/wordpress/wp-content/themes/mytheme/" ));
 });
 
-gulp.task('connect-sync', function() {
+gulp.task('connectSync', function() {
   connect.server({
     port:'vccw.test',
     base:'www',
@@ -122,23 +129,24 @@ gulp.task('browserSync', function() {
 
 //ブラウザリロード
 gulp.task('reload', function () {
-    browserSync.reload();
+  browserSync.reload();
+  connectSync.reload();
 });
 
-gulp.task('default', ['browserSync','connect-sync','sass','imagemin','concat','pug'], function () {
+gulp.task('default', ['browserSync','connectSync','sass','imagemin','concat','pug','sass-watch'], function () {
     gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
-    gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss') //sassフォルダ内のscssファイルの変更箇所
+    gulp.src('src/scss/**/*.scss') //sassフォルダ内のscssファイルの変更箇所
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css/'));
     });
     gulp.watch("src/**/*.pug",+'src/**/_*.pug', ['pug']);
-    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/**/*.php",["reload"]);
-    gulp.watch("srcimages/**/*.jpg", ['imagemin']);
-    gulp.watch("srcimages/**/*.svg", ['imagemin']);
-    gulp.watch("srcimages/**/*.png", ['imagemin']);
+    gulp.watch("src/images/**/*.jpg", ['imagemin']);
+    gulp.watch("src/images/**/*.svg", ['imagemin']);
+    gulp.watch("src/images/**/*.png", ['imagemin']);
     gulp.watch("src/js/**/*.js", ['concat']);
     gulp.watch("src/js/exclude/*.js", ['copy']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/**/*.html", ['reload']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/css/**/*.css", ['reload']);
-    gulp.watch("wordpress/wp-content/themes/mytheme/js/**/*.js", ['reload']);
+    gulp.watch("src/scss/**/*.scss",+"src/scss/**/_*.scss", ['reload']);
+    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/**/*.php", ['reload']);
+    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/css/style.css", ['reload']);
+    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/js/**/*.js", ['reload']);
 });
