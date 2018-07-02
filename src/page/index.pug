@@ -1,7 +1,6 @@
-extend /_includes/_layout
 append variables
   //- Required
-  - var pageTitle= "人物登録";
+  - var pageTitle= "";
   - var pageDescription= site.description;
   - var pageKeywords= site.keywords;
   //- Optional
@@ -13,4 +12,14 @@ append variables
   - var pageUrl= relativePath;
 block content
   // contents
+  :php
+    get_header(); 
+  p
+    :php
+        echo "たちつてと";
+  :php
+    get_footer(); 
+  :php
+    get_script(); 
+
   // /contents

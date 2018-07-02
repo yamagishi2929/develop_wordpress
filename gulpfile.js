@@ -53,7 +53,6 @@ gulp.task('pug', function() {
     // JSONファイルとルート相対パスの情報を渡します。
     locals: locals,
     // Pugファイルのルートディレクトリを指定します。
-    // `/_includes/_layout`のようにルート相対パスで指定することができます。
     basedir: 'src',
     // Pugファイルの整形。
     pretty: true,
@@ -121,15 +120,10 @@ gulp.task('browserSync', function() {
   });
 });
 
-
-
 //ブラウザリロード
 gulp.task('reload', function () {
     browserSync.reload();
 });
-
-
-
 
 gulp.task('default', ['browserSync','connect-sync','sass','imagemin','concat','pug'], function () {
     gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視

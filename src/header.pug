@@ -1,0 +1,18 @@
+:php
+  /**
+   * The header for our theme
+   *
+   * This is the template that displays all of the <head> section and everything up until <div id="content">
+   *
+   * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
+   * @package WordPress
+   * @subpackage Twenty_Seventeen
+   * @since 1.0
+   * @version 1.0
+   */
+doctype html
+html(lang=ja)
+  head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# " + pageOgpType + ": http://ogp.me/ns/" + pageOgpType + "#")
+    include /_meta  
+  header
+    h1 開発環境
