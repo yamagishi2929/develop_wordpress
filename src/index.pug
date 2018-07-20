@@ -1,24 +1,26 @@
-append variables
-  //- Required
-  - var pageTitle= "";
-  - var pageDescription= site.description;
-  - var pageKeywords= site.keywords;
-  //- Optional
-  - var pageOgpTitle= "";
-  - var pageOgpImage= site.ogpImage
-  - var pageLang= "ja";
-  - var pageOgpType= "website";
-  //- Not modified
-  - var pageUrl= relativePath;
-block content
-  // contents
-  :php
-    get_header(); 
-  h2
-    :php
-        echo "aaa";
-  a(href="/page/") リンク
-  :php
-    get_footer(); 
-
-  // /contents
+:php
+  get_header();   
+.mainvisual  
+  span.scroll-arrow
+    img(src!="<?php echo get_template_directory_uri(); ?>/images/scroll_down.png" alt="スクロール")
+article.copy--content.js--color--chanege--content
+  section
+    .container
+      .copy--content--inner
+        h2.content--title IT用語の基本情報
+        p この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。を確認するために入れています。
+article.main-content
+  section
+    .container
+      h2.hedding--title__vertical 新しい
+        br
+        | 単語
+      .blog--index
+        .blog--thumbnail--item
+          a(href="")
+            h3.blog--thumbnail--title WordPress
+            p 1950年9月3日、ジェーンと名付けられた台風が大阪を襲う。当時大阪に公立の美術学校をつくろうという話が確かにあったようだが、彼女は
+          .button-pagenation
+            a(href="") 過去の単語を読む
+:php
+  get_footer(); 

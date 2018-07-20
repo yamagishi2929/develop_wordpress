@@ -1,0 +1,509 @@
+.mainvisual
+  width: 100%
+  height: 166px
+  background-color: $background
+  position: relative
+  z-index: 1
+  position: relative
+  box-sizing: border-box
+  z-index: 2
+  &:before
+    content: ""
+    z-index: 3
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: $filter
+
+.site-title-wrap
+  position: absolute
+  right: 0
+  top: 0
+  background-color: $accent
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 8px 6px
+  box-sizing: border-box
+  height: 166px
+  z-index: 4
+  .site-title
+    z-index: 5
+    writing-mode: vertical-rl
+    display: block
+    color: $strong-black
+    font-family: "Hannari", serif
+    font-size: 12px
+    font-size: 1.2rem
+    box-sizing: border-box
+    .site-title-corp
+      padding-left: 8px
+      display: block
+      letter-spacing: 0.3em
+      text-indent: 0.3em
+    .site-title-dictionary
+      font-size: 13px
+      font-size: 1.3rem
+      color: $white
+      border-right: 1px  solid $white
+      padding: 0 7px 0 0
+      display: block
+      flex-grow: 2
+      font-weight: 400
+      letter-spacing: 0.3em
+      text-indent: 0.15em
+
+.menu-header
+  width: 30px
+  position: absolute
+  top: 6px
+  left: 16px
+  z-index: 5
+  span
+    width: 30px
+    height: 1px
+    display: block
+    padding-bottom: 10px
+    border-bottom: 2px solid $white
+.scroll-arrow
+  display: none
+
+//------------------------------------------
+body.home
+  .mainvisual
+    height: 100%
+    &:before
+      display: none
+  .site-title-wrap
+    height: 277px
+  .site-title
+    font-size: 16px
+    font-size: 1.6rem
+    .site-title-corp
+      padding-left: 8px
+      letter-spacing: 0.3em
+      text-indent: 0.3em
+    .site-title-dictionary
+      font-size: 24px
+      font-size: 2.4rem
+      padding: 0 14px 0 0
+      display: block
+      flex-grow: 2
+      font-weight: 400
+      letter-spacing: 0.3em
+      text-indent: 0.15em
+  .menu-header
+    width: 30px
+    position: absolute
+    top: 6px
+    left: 16px
+    span
+      width: 30px
+      height: 1px
+      display: block
+      padding-bottom: 10px
+      border-bottom: 2px solid $strong-black
+    .scroll-arrow
+      position: absolute
+      display: block
+      left: -webkit-calc(50% - 15px)
+      left: calc(50% - 15px)
+      bottom: 40px
+//------------------------------------------
+
+
+
+
+
+
+.copy--content
+  background-color: $accent
+  height: 100%
+  width: 100%
+  padding-top: 80px
+.copy--content--inner
+  .content--title
+    font-size: 26px
+    font-size: 2.6rem
+    letter-spacing: 0.3em
+    text-align: center
+    font-family: "Hannari", serif
+    color: $strong-black
+    margin-bottom: 36px
+    span
+      font-size: 18px
+  p
+    font-size: 15px
+    font-size: 1.5rem
+    color: $white
+    line-height: 1.9em
+    font-family: "Hannari", serif
+    letter-spacing: 0.3em
+    font-weight: 400
+
+
+
+.hedding--title__vertical
+  writing-mode: vertical-rl
+  font-family: "Hannari", serif
+  font-size: 18px
+  font-size: 1.8rem
+  font-weight: 400
+  letter-spacing: 0.25em
+  border-left: 1px solid $strong-black
+  padding-left: 6px
+  display: block
+  position: relative
+  indent: 0.125em
+  margin-bottom: 24px
+  &:before
+    content: ""
+    display: block
+    width: 3px
+    height: 1em
+    position: absolute
+    top: -webkit-calc(50% - 0.5em)
+    top: calc(50% - 0.5em)
+    left: 0
+    background-color: $strong-black
+
+.hedding--title__vertical.footer--heading
+  border-left: 1px solid $white
+  color: $white
+  &:before
+    background-color: $white
+
+.blog--thumbnail--item
+  width: 50%
+  position: relative
+  box-sizing: border-box
+  &:nth-child(odd)
+    padding: 0 12px 5px 0
+    &:before
+      content: ""
+      position: absolute
+      right: 0
+      top: 0
+      border-right: 1px solid $strong-black
+      width: 1px
+      height: -webkit-calc(100% - 5px)
+      height: calc(100% - 5px)
+  &:nth-child(even)
+    padding: 0 0 5px 12px
+    &:after
+      right: 0
+  &:last-child, &:nth-last-child(2)
+    &:after
+      border-bottom: 0px
+
+  &:after
+    content: ""
+    position: absolute
+    bottom: 0
+    height: 1px
+    border-bottom: 1px solid $strong-black
+    width: -webkit-calc(100% - 5px)
+    width: calc(100% - 5px)
+
+  .blog--thumbnail--title
+    font-family: NotoSerifCJKjp
+    font-size: 14px
+    font-weight: bold
+    color: $strong-black
+    padding-top: 8px
+  p
+    font-size: 12px
+
+.button-pagenation
+  border-bottom: 1px solid
+  padding: 20px 0 4px
+  position: relative
+  display: flex
+  width: 154px
+  justify-content: center
+  align-items: center
+  margin: auto
+  padding-left: 0.25em
+  &:before
+    content: ""
+    height: 3px
+    width: 1.8em
+    display: block
+    position: absolute
+    background-color: $strong-black
+    bottom: 0
+    left: -webkit-calc(50% - 0.9em)
+    left: calc(50% - 0.9em)
+  a
+    color: $strong-black
+    font-family: $accent-font
+    font-size: 14px
+    text-align: center
+    letter-spacing: 0.25em
+    font-size: 1.4rem
+    &:after
+      content: ""
+      height: 1em
+      width: 1em
+      display: inline-block
+      position: relative
+      top: 1px
+      left: 1px
+      background-image: url(../images/icon/next.png)
+      background-repeat: no-repeat
+      background-position: 0 center
+
+
+.page--view--item
+  width: 100%
+  height:
+  display: flex
+  justify-content: center
+  align-items: center
+  border-top: 1px solid $strong-black
+  border-bottom: 1px solid $strong-black
+
+
+
+.footer--bg
+  background-color: $background-black
+  padding: 40px 0  32px
+
+
+.footer--catogory
+  border-bottom: 1px solid $white
+  padding-bottom: 16px
+  li
+    display: flex
+    height: 32px
+    a
+      display: block
+      width: 100%
+      height: 100%
+      align-items: center
+      color: $white
+      font-size: 14px
+      font-size: 1.4rem
+      font-family: "Hannari", serif
+      font-weight: 400
+
+.footer--tag
+  a
+    font-family: $accent-font
+    color: $white
+    font-weight: 400
+    display: inline-block
+    font-size: 14px
+    font-size: 1.4rem
+    margin-right: 1.2em
+    flex-wrap: wrap
+    &:last-child
+      margin-right: 0
+
+.footer-logo-area
+  padding: 38px 0 32px
+  width: 100%
+  span
+    font-family: $accent-font
+    color: $white
+    width: 100%
+    font-weight: lighter
+    display: block
+    font-size: 12px
+    font-size: 1.2rem
+    text-align: center
+    padding-bottom: 0.85em
+    letter-spacing: 0.35em
+  img
+    display: block
+    width: 115px
+    margin: auto
+
+.footer--copy
+  display: block
+  text-align: center
+  color: $white
+  font-size: 12px
+  font-size: 1.2rem
+  font-weight: 400
+  line-height: 1.7em
+
+
+//*記事単独-------------------------------------------
+.single--header
+  width: --webkit-calc(100% - 69px)
+  width: calc(100% - 69px)
+  height: 166px
+  padding: 0 14px 0 18px
+  z-index: 3
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  box-sizing: border-box
+  .single--content--title
+    color: $white
+    font-family: $accent-font
+    font-weight: 400
+    letter-spacing: 0.17em
+    font-size: 20px
+    font-size: 2.0rem
+    line-height: 1.65em
+    padding: 0
+    z-index: 4
+  .breadcrumbs
+    position: absolute
+    font-family: $basic-text
+    font-weight: normal
+    bottom: 0.7em
+    display: flex
+    flex-wrap: wrap
+    z-index: 4
+    li
+      a
+        color: $white
+        font-size: 12px
+        padding: 0 0.8em 0 1.2em
+        background-image: url(../images/icon/arrow_wh.png)
+        background-repeat: no-repeat
+        background-position: 0 0.1em
+      &:first-child
+        a
+          background-image: none;
+          padding-left: 0
+
+.single--content--label
+  width: 100%
+  position: relative
+  font-family: $basic-text
+  font-weight: normal
+  .single--content--category
+    padding-bottom: 11px
+    a
+      color: $accent
+      font-family: $accent-font
+      font-weight: 400
+  .single--content--data
+    font-size: 12px
+    font-size: 1.2rem
+    position: absolute
+    right: 0
+    top: 0
+    color: $moderate
+
+  .single--content--tag
+    display: flex
+    flex-wrap: wrap
+    a
+      font-size: 12px
+      font-size: 1.2rem
+      color: $moderate
+      display: block
+      margin-left: 1em
+      border-bottom: 1px solid $moderate
+      &:first-child
+        margin-left: 0
+
+//*記事ライター
+.single--content--writer
+  padding: 23px 0
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  .single--content--writer--image
+    width: 60px
+    height: 60px
+    border-radius: 45px
+    border: 3px solid $accent
+    background-size: cover
+    background-repeat: no-repeat
+  .single--content--writer--name
+    font-size: 16px
+    font-size: 1.6rem
+    font-weight: bold
+    color: $strong-black
+    font-family: $basic-text
+    padding-left: 16px
+//*記事本文
+.single--content--maintext
+  h2
+    font-size: 20px
+    font-size: 2rem
+    @include single--heading
+  h3
+    font-size: 16px
+    font-size: 1.6rem
+    @include single--heading
+  p
+    font-size: 14px
+    font-size: 1.4rem
+    font-family: $basic-text
+    color: $text
+    font-weight: normal
+    line-height: 1.85em
+    padding-bottom: 24px
+  a
+    color: $accent
+    border-bottom: 1px solid $accent
+  .single--content--maintext-samplecase
+    border-top: 1px solid $strong-black
+    padding-top: 18px
+    h4
+      @include single--heading
+      color: $accent
+
+//単独記事ページネーション
+.single--content--pagenation
+  width: 100%
+  display: flex
+  flex-wrap: wrap
+  border-top: 2px solid $strong-black
+  border-bottom: 2px solid $strong-black
+  .single--content--pagenation--link
+    a
+      box-sizing: border-box
+      font-family: $accent-font
+      width: 100%
+      height: 100%
+      padding: 16px
+      display: flex
+      align-items: center
+      background-image: url(../images/icon/next.png)
+      background-size: 9px 9px
+      background-repeat: no-repeat
+
+  .single--content--pagenation--link
+    &:first-child
+      width: -webkit-calc(50% - 2px)
+      width: calc(50% - 2px)
+      border-right: 2px solid $strong-black
+      a
+        background-position: 16px center
+        text-indent: 1em
+  .single--content--pagenation--link
+    &:last-child
+      width: 50%
+      a
+        background-position: right 16px bottom 50%
+
+.single--content--backtop
+  box-sizing: border-box
+  height: 38px
+  display: flex
+  justify-content: center
+  align-items: center
+  a
+    width: 94px
+    margin: auto
+    display: block
+    background-image: url(../images/icon/next.png)
+    background-size: 9px 9px
+    background-repeat: no-repeat
+    background-position: right 0px center
+
+    span
+      font-family: $accent-font
+      display: block
+      font-size: 14px
+      font-size: 1.4rem

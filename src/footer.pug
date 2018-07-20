@@ -1,6 +1,40 @@
 // footer
-footer
-  p フッター
+footer.footer--bg
+  article.footer--content
+    section
+      .container
+        h2.hedding--title__vertical.footer--heading カテゴリー
+        ul.footer--catogory
+          li
+            a(href="") ディレクション
+          li
+            a(href="") 開発
+          li
+            a(href="") クリエイティブ
+  article
+    section
+      .container
+        h2.hedding--title__vertical.footer--heading タグ
+        .footer--tag
+          a(href="") ディレクション
+          a(href="") 開発
+          a(href="") クリエイティブ
+          a(href="") フロントエンド
+          a(href="") EC
+          a(href="") SNS
+          a(href="") 運用代行
+  .container
+    .footer-logo-area
+      span 運営
+      img(src!="<?php echo get_template_directory_uri(); ?>/images/claves_logo_wh.svg")
+    small.footer--copy © 2013 - 
+      :php
+        $year = date('Y');
+        echo $year;    
+      | 株式会社CLAVES(クラベス)
+      br
+      | All rights reserved.
+        
 // /footer
 
   

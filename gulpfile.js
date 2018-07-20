@@ -2,11 +2,19 @@ var gulp =  require('gulp');
 var sass =  require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var cssmin = require("gulp-cssmin");
-var rename =require('gulp-rename');
-var browserSync =require('browser-sync');
+var rename = require('gulp-rename');
+
+
+
+var browserSync = require('browser-sync');
+var connect = require('gulp-connect-php');
+
+
 var autoprefixer =require('gulp-autoprefixer');
 var concat =require('gulp-concat');
-var connect = require('gulp-connect-php');
+
+
+
 var pug = require('gulp-pug');
 var fs = require('fs');
 var plumber = require('gulp-plumber');
@@ -24,7 +32,7 @@ var src = {
   'pug': ['src/**/*.pug', '!' + 'src/**/_*.pug'],
   // JSONファイルのディレクトリを変数化。
   'json': 'src/_data/',
-  'scss': 'src/scss/**/*.scss',
+  'sass': 'src/sass/**/*.sass',
   'js': 'src/js/**/*.js',
 };
 
@@ -69,7 +77,7 @@ gulp.task('pug', function() {
 
 //Sassのコンパイル
 gulp.task('sass', function() {
-  return gulp.src('src/scss/**/*.scss',+'src/scss/**/_*.scss')
+  return gulp.src('src/sass/**/*.sass',+'src/sass/**/_*.sass')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(sourcemaps.write())
@@ -78,7 +86,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('sass-watch', ['sass'], function(){
-  var watcher = gulp.watch('src/scss/**/*.scss',+'src/scss/**/_*.scss' ['sass']);
+  var watcher = gulp.watch('src/sass/**/*.sass',+'src/sass/**/_*.sass' ['sass']);
   watcher.on('change', function(event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
   });
@@ -109,6 +117,9 @@ gulp.task( 'imagemin', function(){
     .pipe(gulp.dest( "vccw/wordpress/wp-content/themes/mytheme/" ));
 });
 
+//----------------------------------------------------------------------------------------------------------------------------------
+//ローカルサーバーを起動
+
 gulp.task('connectSync', function() {
   connect.server({
     port:'vccw.test',
@@ -130,23 +141,24 @@ gulp.task('browserSync', function() {
 //ブラウザリロード
 gulp.task('reload', function () {
   browserSync.reload();
-  connectSync.reload();
 });
 
-gulp.task('default', ['browserSync','connectSync','sass','imagemin','concat','pug','sass-watch'], function () {
-    gulp.watch('src/scss/**/*.scss',function(){ //sassフォルダ内のscssファイルを監視
-    gulp.src('src/scss/**/*.scss') //sassフォルダ内のscssファイルの変更箇所
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css/'));
-    });
-    gulp.watch("src/**/*.pug",+'src/**/_*.pug', ['pug']);
-    gulp.watch("src/images/**/*.jpg", ['imagemin']);
-    gulp.watch("src/images/**/*.svg", ['imagemin']);
-    gulp.watch("src/images/**/*.png", ['imagemin']);
-    gulp.watch("src/js/**/*.js", ['concat']);
-    gulp.watch("src/js/exclude/*.js", ['copy']);
-    gulp.watch("src/scss/**/*.scss",+"src/scss/**/_*.scss", ['reload']);
-    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/**/*.php", ['reload']);
-    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/css/style.css", ['reload']);
-    gulp.watch("vccw/wordpress/wp-content/themes/mytheme/js/**/*.js", ['reload']);
+//----------------------------------------------------------------------------------------------------------------------------------
+
+gulp.task('default', ['browserSync','sass','imagemin','concat','pug','sass-watch'], function () {
+  gulp.watch('src/sass/**/*.sass',function(){ //sassフォルダ内のsassファイルを監視
+  gulp.src('src/sass/**/*.sass') //sassフォルダ内のsassファイルの変更箇所
+      .pipe(sass().on('error', sass.logError))
+      .pipe(gulp.dest('vccw/wordpress/wp-content/themes/mytheme/css/'));
+  });
+  gulp.watch("src/**/*.pug",+'src/**/_*.pug', ['pug']);
+  gulp.watch("src/images/**/*.jpg", ['imagemin']);
+  gulp.watch("src/images/**/*.svg", ['imagemin']);
+  gulp.watch("src/images/**/*.png", ['imagemin']);
+  gulp.watch("src/js/**/*.js", ['concat']);
+  gulp.watch("src/js/exclude/*.js", ['copy']);
+  gulp.watch("src/sass/**/_*.sass", ['reload']);
+  gulp.watch("vccw/wordpress/wp-content/themes/mytheme/**/*.php", ['reload']);
+  gulp.watch("vccw/wordpress/wp-content/themes/mytheme/css/style.css", ['reload']);
+  gulp.watch("vccw/wordpress/wp-content/themes/mytheme/js/**/*.js", ['reload']);
 });

@@ -25,15 +25,17 @@ html(lang=ja)
     meta(name="keywords" content=pageKeywords)
 
     block css
+      
       link(rel="stylesheet" href!="<?php echo get_template_directory_uri(); ?>/css/style.css" media="screen" )
 
     //- OGP
+    
     if pageOgpTitle
       meta(property="og:title" content=pageOgpTitle + ' | ' + site.name)
     else
         meta(property="og:title" content=site.name)
         meta(property="og:type" content=pageOgpType)
-        meta(property="og:image" content=pageOgpImage)
+        meta(property="og:image" contentle=pageOgpImage)
         meta(property="og:url" content=site.rootUrl + pageUrl)
         meta(property="og:description" content=pageDescription)
         meta(property="og:site_name" content=site.name)
@@ -50,7 +52,13 @@ html(lang=ja)
     //- /OGP Twitter Cards
 
     //- /OGP  
-  header
-    h1 テスト
-    
-    
+  <body <?php body_class(); ?>>
+    header.top-heading
+      .site-title-wrap
+        h1.site-title 
+          span.site-title-corp 株式会社クラベス<br>
+          span.site-title-dictionary IT用語の基礎知識
+      nav.menu-header
+        span
+        span
+        
